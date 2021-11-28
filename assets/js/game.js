@@ -128,32 +128,14 @@ var shop = function() {
   switch (shopOptionPrompt) {
     case "REFILL": // new case
     case "refill":
-      if (playerInfo.money >=7) {
-        window.alert("Refilling player's health by 25 for 7 dollars.");
-
-        // increase health and decrease money
-        playerInfo.health = playerInfo.health + 25;
-        playerInfo.money = playerInfo.money - 7;
-      }
-      else {
-        window.alert("You don't have enough money!");
-      }
-
+      playerInfo.refillHealth();
       break;
+
     case "UPGRADE":
     case "upgrade":
-      if (playerInfo.money >=7) {
-        window.alert("Upgrading players's attack by 8 for 7 dollars.");
-
-        // increase attack and decrease money
-        playerInfo.attack = playerInfo.attack + 8;
-        playerInfo.money = playerInfo.money - 7;
-      }
-      else {
-        window.alert("You don't have eoungh money!");
-      }
-
+     playerInfo.upgradeAttack();
       break;
+
     case "LEAVE":
     case "leave":
       window.alert("Leaving the store");
@@ -176,8 +158,20 @@ var randomNumber = function(min, max) {
   return value;
 };
 
+// function to set name
+var getPlayerName = function() {
+  var name = "";
+
+  while (name === "" || name === null) {
+    name = prompt("What is your robot's name?");
+  }
+
+  console.log("Your robot's name is " + name);
+  return name;
+};
+
 var playerInfo = {
-  name: window.prompt("What is your robot's name?"),
+  name: getPlayerName(),
   health: 100,
   attack: 10,
   money: 10,
@@ -187,12 +181,24 @@ var playerInfo = {
     this.attack = 10;
   }, // comma!
   refillHealth: function() {
+    if (this.money>= 7){
+    window.alert("Refilling player's health by 25 for 7 dollars.");
     this.health += 25;
     this.money -= 7;
+    }
+    else {
+      window.alert("You don't have enough money!");
+    }
   }, // comma!
   upgradeAttack: function() {
+    if (this.money >= 7) {
+      window.alert("Upgrading player's attack by 7 for 7 dollars.");
     this.attack += 7;
     this.money -= 7;
+    }
+    else{
+     window.alert("You don't have enough money!");
+    }
   }
 };
 
